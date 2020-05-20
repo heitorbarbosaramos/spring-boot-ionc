@@ -1,28 +1,27 @@
 package com.heitor.cursomc.resources;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.heitor.cursomc.domain.Categoria;
+import com.heitor.cursomc.services.CategoriaService;
 
 @RestController
 @RequestMapping(value = "/categorias")
 public class CategoriaResources {
-
-	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<List<Categoria>> testeResouces() {
+	
+	@Autowired
+	CategoriaService service;
+	
+	@RequestMapping(value = "/{id}",method = RequestMethod.GET)
+	public ResponseEntity<Categoria> testeResouces(@PathVariable Integer id) {
 		
-		List<Categoria> lista = new ArrayList<Categoria>();
+		Categoria obj = service.findById(id);
 		
-		lista.add(new Categoria(1, "Informática"));
-		lista.add(new Categoria(1, "Escritório"));
-
-		
-		return ResponseEntity.ok().body(lista);
+		return ResponseEntity.ok().body(obj);
 	}
 }
