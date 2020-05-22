@@ -10,6 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.heitor.cursomc.domain.enums.EstadoPagamento;
 
 @Entity
@@ -20,7 +21,9 @@ public abstract class Pagamento  implements Serializable{
 	@Id
 	private Integer id;
 	private Integer estado;
+	private String estadoPag;
 	
+	@JsonIgnore
 	@OneToOne
 	@JoinColumn(name = "pedido_id")
 	@MapsId
@@ -34,6 +37,7 @@ public abstract class Pagamento  implements Serializable{
 		this.id = id;
 		this.estado = estado.getCod();
 		this.pedido = pedido;
+		this.estadoPag = estado.getDescricao();
 	}
 
 	public Integer getId() {
@@ -59,6 +63,14 @@ public abstract class Pagamento  implements Serializable{
 	public void setPedido(Pedido pedido) {
 		this.pedido = pedido;
 	}
+	
+	public String getEstadoPag() {
+		return estadoPag;
+	}
+
+	public void setEstadoPag(String estadoPag) {
+		this.estadoPag = estadoPag;
+	}
 
 	@Override
 	public int hashCode() {
@@ -83,7 +95,5 @@ public abstract class Pagamento  implements Serializable{
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
-	}
-
-	
+	}	
 }
