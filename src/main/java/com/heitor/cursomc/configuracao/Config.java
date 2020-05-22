@@ -12,6 +12,7 @@ import com.heitor.cursomc.domain.Cidade;
 import com.heitor.cursomc.domain.Cliente;
 import com.heitor.cursomc.domain.Endereco;
 import com.heitor.cursomc.domain.Estado;
+import com.heitor.cursomc.domain.ItemPedido;
 import com.heitor.cursomc.domain.Pagamento;
 import com.heitor.cursomc.domain.PagamentoComBoleto;
 import com.heitor.cursomc.domain.PagamentoComCartao;
@@ -24,6 +25,7 @@ import com.heitor.cursomc.repositories.CidadeRepository;
 import com.heitor.cursomc.repositories.ClienteRepository;
 import com.heitor.cursomc.repositories.EnderecoRepository;
 import com.heitor.cursomc.repositories.EstadoRepository;
+import com.heitor.cursomc.repositories.ItemPedidoRepository;
 import com.heitor.cursomc.repositories.PagamentoRepository;
 import com.heitor.cursomc.repositories.PedidoRepository;
 import com.heitor.cursomc.repositories.ProdutoRepository;
@@ -54,6 +56,9 @@ public class Config implements CommandLineRunner{
 	
 	@Autowired
 	PagamentoRepository pagamentoRepository;
+	
+	@Autowired
+	ItemPedidoRepository itemPedidoRepository;
 	
 	@Override
 	public void run(String... args) throws Exception {
@@ -116,6 +121,21 @@ public class Config implements CommandLineRunner{
 		pedidoRepository.saveAll(Arrays.asList(ped1, ped2));
 		pagamentoRepository.saveAll(Arrays.asList(pagto1, pagto2));
 		clienteRepository.saveAll(Arrays.asList(cli1));
+		
+		ItemPedido ip1 = new ItemPedido(ped1, p1, 200.0, 1, p1.getPreco());
+		ItemPedido ip2 = new ItemPedido(ped1, p3, 0.0, 2, p3.getPreco());
+		ItemPedido ip3 = new ItemPedido(ped2, p2, 100.0, 1, p2.getPreco());
+		
+		ped1.getItens().addAll(Arrays.asList(ip1, ip2));
+		ped2.getItens().addAll(Arrays.asList(ip3));
+		
+		p1.getItens().addAll(Arrays.asList(ip1));
+		p2.getItens().addAll(Arrays.asList(ip3));
+		p3.getItens().addAll(Arrays.asList(ip2));
+		
+		itemPedidoRepository.saveAll(Arrays.asList(ip1, ip2, ip3));
+		pedidoRepository.saveAll(Arrays.asList(ped1, ped2));
+		produtoRepository.saveAll(Arrays.asList(p1, p2, p3));
 	}
 
 }
