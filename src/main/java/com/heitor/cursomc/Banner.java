@@ -1,5 +1,8 @@
 package com.heitor.cursomc;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
 public class Banner {
 
 	@SuppressWarnings("static-access")
@@ -24,5 +27,24 @@ public class Banner {
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
+	}
+	
+	public static void mostraIp() {
+
+		try {
+
+			String ipDaMaquina = InetAddress.getLocalHost().getHostAddress();
+			String nomeDaMaquina = InetAddress.getLocalHost().getHostName();
+
+			System.out.println("======================================================================================");
+			System.out.println("||     |            ||                                                              ||");
+			System.out.println("||     |.===.       ||    ENDERECO SISTEMA: http://" + ipDaMaquina + ":8080/              ||");
+			System.out.println("||     {}o o{}      ||    NOME DA MAQUINA: " + nomeDaMaquina + "                          ||");
+			System.out.println("||  ooO--(_)--Ooo-  ||                                                              ||");
+			System.out.println("======================================================================================");
+		} catch (UnknownHostException e) {
+			System.out.println("Não foi Possivel Pegar o Endereço da Maquina.");
+			e.printStackTrace();
+		}
 	}
 }
