@@ -32,4 +32,9 @@ public class CategoriaService {
 		obj = repo.save(obj);
 		return obj;
 	}
+	
+	public Categoria update(Categoria obj) {
+		findById(obj.getId());
+		return repo.save(obj);
+	}
 }
