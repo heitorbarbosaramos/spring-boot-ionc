@@ -3,6 +3,7 @@ package com.heitor.cursomc.resources;
 import java.net.URI;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.heitor.cursomc.domain.Categoria;
+import com.heitor.cursomc.domain.DTO.CategoriaDTO;
 import com.heitor.cursomc.services.CategoriaService;
 
 @RestController
@@ -24,10 +26,11 @@ public class CategoriaResources {
 	CategoriaService service;
 	
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<List<Categoria>> findAll(){
+	public ResponseEntity<List<CategoriaDTO>> findAll(){
 		List<Categoria> obj = service.findAll();
 		Collections.sort(obj);
-		return ResponseEntity.ok().body(obj);
+		List<CategoriaDTO> listDTO = obj.stream().map(xx -> new CategoriaDTO(xx)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listDTO);
 	}
 	
 	@RequestMapping(value = "/{id}",method = RequestMethod.GET)
