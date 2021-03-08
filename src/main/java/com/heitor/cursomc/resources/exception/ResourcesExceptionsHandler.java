@@ -17,7 +17,7 @@ public class ResourcesExceptionsHandler {
 	@ExceptionHandler(ObjectNotFoundException.class)
 	public ResponseEntity<StandartError> objectNotFoundException(ObjectNotFoundException e, HttpServletRequest request){
 		
-		StandartError err = new StandartError(HttpStatus.NOT_FOUND.value(), e.getMessage(), System.currentTimeMillis());
+		StandartError err = new StandartError(HttpStatus.NOT_FOUND.value(),HttpStatus.NOT_FOUND.toString(), e.getMessage(), System.currentTimeMillis());
 		
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(err);
 	}
@@ -25,7 +25,7 @@ public class ResourcesExceptionsHandler {
 	@ExceptionHandler(HttpRequestMethodNotSupportedException.class)
 	public ResponseEntity<StandartError> HttpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException e, HttpServletRequest request){
 		
-		StandartError err = new StandartError(HttpStatus.HTTP_VERSION_NOT_SUPPORTED.value(), e.getMessage(), System.currentTimeMillis());
+		StandartError err = new StandartError(HttpStatus.HTTP_VERSION_NOT_SUPPORTED.value(),HttpStatus.HTTP_VERSION_NOT_SUPPORTED.toString(), e.getMessage(), System.currentTimeMillis());
 		
 		return ResponseEntity.status(HttpStatus.HTTP_VERSION_NOT_SUPPORTED).body(err);
 	}
@@ -33,7 +33,7 @@ public class ResourcesExceptionsHandler {
 	@ExceptionHandler(MethodArgumentTypeMismatchException.class)
 	public ResponseEntity<StandartError> MethodArgumentTypeMismatchException(MethodArgumentTypeMismatchException e, HttpServletRequest request){
 		
-		StandartError err = new StandartError(HttpStatus.BAD_REQUEST.value(), e.getMessage(), System.currentTimeMillis());
+		StandartError err = new StandartError(HttpStatus.BAD_REQUEST.value(),HttpStatus.BAD_REQUEST.toString(), e.getMessage(), System.currentTimeMillis());
 		
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
 	}

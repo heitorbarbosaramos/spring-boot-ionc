@@ -7,7 +7,8 @@ public class StandartError implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
-	private Integer status;
+	private Integer codStatus;
+	private String status;
 	private String error;
 	private Long timestamp;
 	private String date;
@@ -17,19 +18,28 @@ public class StandartError implements Serializable{
 	public StandartError() {
 	}
 
-	public StandartError(Integer status, String error, Long timestamp) {
+	public StandartError(Integer codStatus, String status, String error, Long timestamp) {
 		super();
+		this.codStatus = codStatus;
 		this.status = status;
 		this.error = error;
 		this.timestamp = timestamp;
 		date = sdf.format(this.timestamp);
 	}
 
-	public Integer getStatus() {
+	public Integer getCodStatus() {
+		return codStatus;
+	}
+
+	public void setCodStatus(Integer codStatus) {
+		this.codStatus = codStatus;
+	}
+
+	public String getStatus() {
 		return status;
 	}
 
-	public void setStatus(Integer status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 
