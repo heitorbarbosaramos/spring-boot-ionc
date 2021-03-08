@@ -65,6 +65,19 @@ public class Config implements CommandLineRunner{
 
 		Categoria cat1 = new Categoria(null, "Informática");
 		Categoria cat2 = new Categoria(null, "Escritorio");
+		Categoria cat3 = new Categoria(null, "Automotor");
+		Categoria cat4 = new Categoria(null, "Motocicletas");
+		Categoria cat5 = new Categoria(null, "Cama, Mesa e Banho");
+		Categoria cat6 = new Categoria(null, "Informatica");
+		Categoria cat7 = new Categoria(null, "Casa");
+		Categoria cat8 = new Categoria(null, "Predios");
+		Categoria cat9 = new Categoria(null, "Escolar");
+		Categoria cat10 = new Categoria(null, "Diversos");
+		Categoria cat11 = new Categoria(null, "Moda Feminina");
+		Categoria cat12 = new Categoria(null, "Moda Masculina");
+		Categoria cat13 = new Categoria(null, "Moda Infantil");
+		Categoria cat14 = new Categoria(null, "Suprimentos");
+		Categoria cat15 = new Categoria(null, "Mobilia");
 
 		Produto p1 = new Produto(null, "Computador", 2000.00);
 		Produto p2 = new Produto(null, "Impressora", 800.00);
@@ -77,7 +90,7 @@ public class Config implements CommandLineRunner{
 		p2.getCategorias().addAll(Arrays.asList(cat1, cat2));
 		p3.getCategorias().addAll(Arrays.asList(cat1));
 		
-		categoriaRepository.saveAll(Arrays.asList(cat1, cat2));
+		categoriaRepository.saveAll(Arrays.asList(cat1, cat2, cat3, cat4, cat5, cat6, cat7, cat8, cat9, cat10, cat11, cat12, cat13, cat14, cat15));
 		produtoRepository.saveAll(Arrays.asList(p1, p2, p3));
 		
 		Estado est1 = new Estado(null, "Minas Gerais");
