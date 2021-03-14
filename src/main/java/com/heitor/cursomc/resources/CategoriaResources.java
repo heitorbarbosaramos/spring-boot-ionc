@@ -5,6 +5,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +30,8 @@ public class CategoriaResources {
 	
 	@Autowired
 	CategoriaService service;
+	
+	private final Logger LOG = LoggerFactory.getLogger(CategoriaResources.class);
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<List<CategoriaDTO>> findAll(){
@@ -54,7 +60,10 @@ public class CategoriaResources {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<?> insert(@RequestBody Categoria obj){
+	public ResponseEntity<?> insert(@Valid @RequestBody CategoriaDTO objDto){
+		LOG.info("---" + objDto.getName());
+		Categoria obj = service.fromDto(objDto);
+		
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
