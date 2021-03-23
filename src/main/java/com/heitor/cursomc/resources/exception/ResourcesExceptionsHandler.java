@@ -49,6 +49,14 @@ public class ResourcesExceptionsHandler {
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
 	}
 	
+	@ExceptionHandler(NullPointerException.class)
+	public ResponseEntity<StandartError> NullPointerException(NullPointerException e, HttpServletRequest request){
+		
+		StandartError err = new StandartError(HttpStatus.BAD_REQUEST.value(),HttpStatus.BAD_REQUEST.toString(), "Objeto Vazio", System.currentTimeMillis());
+		
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
+	}
+	
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<StandartError> MethodArgumentNotValidException(MethodArgumentNotValidException e, HttpServletRequest request){
 		
