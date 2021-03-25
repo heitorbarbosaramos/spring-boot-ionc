@@ -2,6 +2,7 @@ package com.heitor.cursomc.resources.exception;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -53,6 +54,14 @@ public class ResourcesExceptionsHandler {
 	public ResponseEntity<StandartError> NullPointerException(NullPointerException e, HttpServletRequest request){
 		
 		StandartError err = new StandartError(HttpStatus.BAD_REQUEST.value(),HttpStatus.BAD_REQUEST.toString(), "Objeto Vazio", System.currentTimeMillis());
+		
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
+	}
+	
+	@ExceptionHandler(DataIntegrityViolationException.class)
+	public ResponseEntity<StandartError> DataIntegrityViolationException(DataIntegrityViolationException e, HttpServletRequest request){
+		
+		StandartError err = new StandartError(HttpStatus.BAD_REQUEST.value(),HttpStatus.BAD_REQUEST.toString(), e.getMessage(), System.currentTimeMillis());
 		
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
 	}
