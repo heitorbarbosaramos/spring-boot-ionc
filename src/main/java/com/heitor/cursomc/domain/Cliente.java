@@ -97,16 +97,16 @@ public class Cliente implements Serializable, Comparable<Cliente>{
 		return enderecos;
 	}
 
-	public void setEnderecos(List<Endereco> enderecos) {
-		this.enderecos = enderecos;
+	public void setEnderecos(Endereco enderecos) {
+		this.enderecos.add(enderecos);
 	}
 
 	public Set<String> getTelefones() {
 		return telefones;
 	}
 
-	public void setTelefones(Set<String> telefones) {
-		this.telefones = telefones;
+	public void setTelefones(String telefones) {
+		this.telefones.add(telefones);
 	}
 	
 	public List<Pedido> getPedidos() {

@@ -21,7 +21,7 @@ public enum TipoCliente {
 		return descricao;
 	}
 
-	public TipoCliente toEnum(Integer cod) {
+	public static TipoCliente toEnum(Integer cod) {
 		if(cod == null) {
 			return null;
 		}

@@ -19,8 +19,11 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.heitor.cursomc.domain.Cliente;
+import com.heitor.cursomc.domain.Endereco;
 import com.heitor.cursomc.domain.DTO.ClienteDTO;
+import com.heitor.cursomc.domain.DTO.ClienteNewDTO;
 import com.heitor.cursomc.services.ClienteService;
+import com.heitor.cursomc.services.EnderecoService;
 
 @RestController
 @RequestMapping(value = "/clientes")
@@ -28,6 +31,8 @@ public class ClienteResources {
 
 	@Autowired
 	ClienteService service;
+	@Autowired
+	EnderecoService serviceEndereco;
 	
 	private Logger LOG = LoggerFactory.getLogger(ClienteResources.class);
 	
@@ -52,7 +57,7 @@ public class ClienteResources {
 			@RequestParam(value = "page", defaultValue = "0" ) Integer page, 
 			@RequestParam(value = "pageLine", defaultValue = "24" ) Integer pageLine, 
 			@RequestParam(value = "direction", defaultValue = "ASC" ) String direction, 
-			@RequestParam(value = "orderBy", defaultValue = "name" ) String orderBy
+			@RequestParam(value = "orderBy", defaultValue = "nome" ) String orderBy
 			){
 		Page<Cliente> list = service.findPage(page, pageLine, direction, orderBy);
 		Page<ClienteDTO> listDto = list.map(obj -> new ClienteDTO(obj));
@@ -62,11 +67,11 @@ public class ClienteResources {
 
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<?> insert(@Valid @RequestBody ClienteDTO objDto){
-		LOG.info(objDto.toString());
-		Cliente obj = service.fromDto(objDto);
-		LOG.info(obj.toString());
+	public ResponseEntity<?> insert(@Valid @RequestBody ClienteNewDTO objDto){
+		Cliente obj = service.fromNewDto(objDto);
 		obj = service.insert(obj);
+		Endereco end = new Endereco(null, objDto.getLogradouro(), objDto.getNumero(), objDto.getComplemento(), objDto.getBairro(), objDto.getCep(), obj, null);
+		serviceEndereco.save(end);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
