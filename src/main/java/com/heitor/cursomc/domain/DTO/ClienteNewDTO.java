@@ -2,6 +2,9 @@ package com.heitor.cursomc.domain.DTO;
 
 import java.io.Serializable;
 
+import com.heitor.cursomc.services.validation.ClienteInsert;
+
+@ClienteInsert
 public class ClienteNewDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	

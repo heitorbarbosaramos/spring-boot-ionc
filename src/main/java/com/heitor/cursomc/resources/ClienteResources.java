@@ -1,3 +1,4 @@
+
 package com.heitor.cursomc.resources;
 
 import java.net.URI;
