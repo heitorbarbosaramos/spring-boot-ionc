@@ -23,7 +23,6 @@ public class ClienteInsertValidator implements ConstraintValidator<ClienteInsert
 		// inclua os testes aqui, inserindo erros na lista
 		if(objDto.getTipoCliente().equals(TipoCliente.PESSOA_FISICA.getCod()) && BR.validaCPF(objDto.getCpfOuCnpj())) {
 			list.add(new FieldMessege("cpfOuCnpj", "CPF Invalido"));
-			System.out.println(" = = = = =  =====");
 		}
 		
 		if(objDto.getTipoCliente().equals(TipoCliente.PESSOA_JURIDICA.getCod()) && BR.validaCNPJ(objDto.getCpfOuCnpj())) {

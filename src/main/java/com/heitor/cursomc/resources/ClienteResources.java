@@ -65,7 +65,6 @@ public class ClienteResources {
 		return ResponseEntity.ok().body(listDto);
 	}
 	
-
 	
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<?> insert(@Valid @RequestBody ClienteNewDTO objDto){
